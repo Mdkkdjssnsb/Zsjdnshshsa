@@ -1,0 +1,32 @@
+{
+  "name": "Bing by ArYAN",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ArYAN",
+  "license": "ISC",
+  "dependencies": {
+    "@themaximalist/llm.js": "^0.6.6",
+    "@types/node": "^18.0.6",
+    "axios": "^1.7.2",
+    "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
+    "g4f": "^1.4.3",
+    "hungama-music": "^1.0.0",
+    "imgur": "^2.4.2",
+    "imgur-module": "^1.1.0",
+    "imgur-upload-api": "^2.0.0",
+    "manga-crawler": "^0.7.0",
+    "manga-lib": "^1.1.2",
+    "nayan-bing-api": "^1.0.1",
+    "nayan-media-downloader": "^2.3.4",
+    "nayan-server": "^2.3.4",
+    "request": "^2.88.2",
+    "youtubei": "^1.4.2",
+    "yt-search": "^2.11.0"
+  }
+}
