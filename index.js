@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 const key = "Nayan"; // Don't change key
-const cookie = "13puxb_VkQ1iJtwVp3cYumvILjLrS4QayQFb5Z-rELc-CnXfNbmQvpAR63g6YW0AYqPzP0ND8xkc72zbhWoNR5uvJiC0tkdhg8SxYlba6pXkvYAqGRHOME4Rqy2QaiA1uYpyQ3GgiagnDHJL7lYUVWXsMh4IsOlnmxjy0ZrN74ImEx_GubdOzfpNBS7u0rqNxHA1UXhwGzaWtCAaW62Ek8ab3j1OO6Rhc_ie1Al4DKaM"; // Paste your Bing cookie here
+const cookie = "1QCDvczQOrBnMEJl_thKkWU8Zm1JYqbkdGGu7UBp42XxNWiypK0MsM4u2UJHlyspwlJX54trUaFEddEkrWUe9EnKf4ad4FDOgV_2G0O4aRnbVM8i_FZDvxFrKnxbBbJOLlgIrL8p3cDZIKPmi_XCyBJiJjTVH-IJ33XGBZhscLY4NF9os7GPYW5cb8VI5l_cwqv3h3lloCYL3A9M1SYBjpYzNb-tvYTQ1oJ2Ym5mvngA"; // Paste your Bing cookie here
 
 app.get('/q', async (req, res) => {
   const prompt = req.query.prompt; // Get prompt from query parameter, default to "cat"
