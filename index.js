@@ -4,10 +4,10 @@ const app = express();
 const port = 3000;
 
 const key = "Nayan"; // Don't change key
-const cookie = "1jtANeU8kziBoUmpkmoRAQhAKHyBL-E5mMS-HR9XPNZGwLC8Bz9UFugmRZebNu8Prg2Kldh6uzBFUnzKiBqR0PE6KDsmSTS-SbUPqmK0slYFHmIS2Z5_oORq8Qy8bRiYZWw2FSDe_oiJAg7G5lAmnDGO4Q6fCCklh_QxrhYyWqXkYBBTjIsPqrjOW5mDqkPUbsdyJCkR95LwwNDPfF96gtE_FhR_j4qzvRJxxFFwM1-0"; // Paste your Bing cookie here
+const cookie = "1CKjPIxmWJu5hyuEdHfdZ6iVYMcYZheMSQuKtRcWTbvzQsNky0bX2RSazd86BgvJi6FTf3GDj1qieABuinzP0Q-Ne4TInHKMAm89dDaFh2s6iOd2emdJYFr23zs1SYdkSj3jhYlqEocU15aqgpm_UF5I2qHqN6I4FKs5_XLCIc23PQ_1VP5WQq2NThtVSeDHS3uatCvprzd4bXUWITUM2y_Qc0vWzmtDSuRJtGZRFQPo"; // Paste your Bing cookie here
 
-app.get('/q', async (req, res) => {
-  const prompt = req.query.prompt || "cat"; // Get prompt from query parameter, default to "cat"
+app.get('/api/bing', async (req, res) => {
+  const prompt = req.query.prompt; // Get prompt from query parameter, default to "cat"
 
   try {
     const data = await bing(prompt, cookie, key);
