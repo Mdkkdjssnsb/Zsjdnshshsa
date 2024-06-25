@@ -11,11 +11,11 @@ app.get('/', (req, res) => {
 
 const key = "Nayan"; // Don't change key
 
-app.use(bodyParser.json());
+// No need for bodyParser.json() since we're not using POST anymore
 
-app.post('/api/bing', async (req, res) => {
-  const prompt = req.body.prompt;
-  const cookie = req.query.cookies;
+app.get('/api/bing', async (req, res) => {
+  const prompt = req.query.prompt; // Get prompt from query parameters
+  const cookie = req.query.cookie; // Get cookie from query parameters
 
   try {
     const data = await bing(prompt, cookie, key);
