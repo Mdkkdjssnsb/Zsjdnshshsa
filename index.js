@@ -9,21 +9,11 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-// Store allowed API keys
-const allowedApiKeys = ["bing-apikey-bY7Akgtk&"];
-
 const key = "Nayan"; // Don't change key
 
 app.use(bodyParser.json());
 
 app.post('/api/bing', async (req, res) => {
-  const apiKey = req.headers.apikey;
-
-  // Check if API key is provided and valid
-  if (!apiKey || !allowedApiKeys.includes(apiKey)) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
   const prompt = req.body.prompt;
   const cookies = req.query.cookies;
 
