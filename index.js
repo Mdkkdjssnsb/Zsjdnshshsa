@@ -10,12 +10,10 @@ app.get('/', (req, res) => {
 });
 
 // Store allowed API keys
-const allowedApiKeys = ["test"];
+const allowedApiKeys = ["bing-apikey-bY7Akgtk&"];
 
 const key = "Nayan"; // Don't change key
-const cookie = "1CKjPIxmWJu5hyuEdHfdZ6iVYMcYZheMSQuKtRcWTbvzQsNky0bX2RSazd86BgvJi6FTf3GDj1qieABuinzP0Q-Ne4TInHKMAm89dDaFh2s6iOd2emdJYFr23zs1SYdkSj3jhYlqEocU15aqgpm_UF5I2qHqN6I4FKs5_XLCIc23PQ_1VP5WQq2NThtVSeDHS3uatCvprzd4bXUWITUM2y_Qc0vWzmtDSuRJtGZRFQPo"; // Paste your Bing cookie here
 
-// Middleware for parsing JSON requests
 app.use(bodyParser.json());
 
 app.post('/api/bing', async (req, res) => {
@@ -26,13 +24,15 @@ app.post('/api/bing', async (req, res) => {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const prompt = req.body.prompt || 'cat'; // Get prompt from request body, default to "cat"
+  const prompt = req.body.prompt;
+  const cookies = req.query._U;
 
   try {
-    const data = await bing(prompt, cookie, key);
+    const data = await bing(prompt, cookies, key);
     const images = data.result;
     res.json({ images: images });
   } catch (error) {
+    console.error(error); // Log the error for debugging purposes
     res.status(500).json({ error: error.message });
   }
 });
