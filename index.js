@@ -15,10 +15,10 @@ app.use(bodyParser.json());
 
 app.post('/api/bing', async (req, res) => {
   const prompt = req.body.prompt;
-  const cookies = req.query.cookies;
+  const cookie = req.query.cookies;
 
   try {
-    const data = await bing(prompt, cookies, key);
+    const data = await bing(prompt, cookie, key);
     const images = data.result;
     res.json({ images: images });
   } catch (error) {
