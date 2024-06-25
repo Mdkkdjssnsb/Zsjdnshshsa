@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bing Image Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #loading {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bing Image Generator</h1>
+    <input type="text" id="prompt" placeholder="Enter prompt (default: cat)">
+    <input type="text" id="apiKey" placeholder="Enter API Key">
+    <button id="generate">Generate Images</button>
+    <div id="loading">Loading...</div>
+    <div id="images"></div>
+
+    <script>
+        $(document).ready(function(){
+            $('#generate').click(function(){
+                var prompt = $('#prompt').val() || 'cat';
+                var apiKey = $('#apiKey').val();
+
+                $('#loading').show(); // Show loading indicator
+
+                $.ajax({
+                    url: '/api/bing',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    headers: {
+                        'apiKey': apiKey
+                    },
+                    data: JSON.stringify({ prompt: prompt }),
+                    success: function(data){
+                        $('#images').empty();
+                        data.images.forEach(function(image){
+                            $('#images').append('<img src="' + image + '" width="200" height="200">');
+                        });
+                    },
+                    error: function(xhr, status, error){
+                        $('#images').empty();
+                        $('#images').append('<p>Error: ' + xhr.responseJSON.error + '</p>');
+                    },
+                    complete: function(){
+                        $('#loading').hide(); // Hide loading indicator
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
