@@ -3,154 +3,477 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bing Image Generator</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Global Spark</title>
+    <link rel="icon" href="https://i.imgur.com/AFKTGv1.jpeg" type="image/jpg">
     <style>
         body {
-            background-color: #f5f5f5; /* Default background color */
-            font-family: Arial, sans-serif; /* Default font family */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1d;
+            color: #c9c9c9;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
-        /* Colorful background themes */
-        .theme1 {
-            background-color: #ffc107; /* Yellow theme */
-        }
-        .theme2 {
-            background-color: #2196F3; /* Blue theme */
-        }
-        /* Animated elements */
-        .animated {
-            animation-duration: 0.5s;
-            animation-name: slideIn;
-        }
-        @keyframes slideIn {
-            from {
-                margin-left: 100%;
-                width: 300%; 
-            }
-            to {
-                margin-left: 0%;
-                width: 100%;
-            }
-        }
-        /* Numbered input boxes */
-        .numbered-box {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            border: 2px solid #333;
-            border-radius: 10px;
+        header {
+            background-color: #282c34;
+            padding: 20px;
             text-align: center;
+            color: #61dafb;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        nav a:hover {
+            background-color: #61dafb;
+            color: black;
+        }
+        #welcome-message {
+            text-align: center;
+            padding: 50px;
+            background-color: #282c34;
+            margin: 20px auto;
+            border-radius: 10px;
+            max-width: 800px;
+            color: #61dafb;
+            animation: fadeIn 2s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .section {
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #282c34;
+            border-radius: 10px;
+            max-width: 800px;
+        }
+        .section button, .button {
+            background-color: #008CBA;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .section button:hover, .button:hover {
+            background-color: #005f75;
+            transform: scale(1.05);
+        }
+        .section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .section ul li {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #444;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+        .section ul li:hover {
+            transform: translateX(10px);
+        }
+        .section ul li a {
+            text-decoration: none;
+            color: #61dafb;
+        }
+        .social-links {
+            text-align: center;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #282c34;
+            border-radius: 10px;
+            max-width: 800px;
+        }
+        .social-link {
+            margin: 10px;
+            padding: 10px;
+            color: white;
+            background-color: #555;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .social-link:hover {
+            background-color: #777;
+            transform: scale(1.1);
+        }
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        footer {
+            background-color: #282c34;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        .cool-feature img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        .cool-feature img:hover {
+            transform: scale(1.05);
+        }
+        .slide-in {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        .slide-in-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .text-area {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #1a1a1d;
+            color: #c9c9c9;
+        }
+        .todo-list {
+            text-align: left;
+        }
+        .todo-list input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #1a1a1d;
+            color: #c9c9c9;
+        }
+        .todo-list ul {
+            padding: 0;
+            list-style-type: none;
+        }
+        .todo-list ul li {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #444;
+            border-radius: 5px;
+        }
+        .todo-list ul li button {
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-left: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .todo-list ul li button:hover {
+            background-color: #ff1c1c;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .image-box {
+            border: 2px solid #333;
+            padding: 5px;
             margin: 5px;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        .image-box img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        #loading {
+            display: none;
+        }
+        .error {
+            color: red;
+            margin-top: 20px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div id="header" class="theme1 animated">
-        <!-- Logo and header content here -->
-    </div>
-    <div>
-        <label for="prompt">Enter prompt (default: cat):</label>
-        <input type="text" id="prompt" placeholder="e.g., dog, beach, sunset">
-    </div>
-    <div>
-        <label for="apiKey">Enter API Key:</label>
-        <input type="text" id="apiKey" placeholder="Your API Key">
-    </div>
-    <div>
-        <label for="numImages">Number of Images:</label>
-        <input type="number" id="numImages" min="1" max="10" value="5">
-    </div>
-    <button id="generate" class="theme2 animated">Generate Images</button>
-    <!-- Image uploading -->
-    <div>
-        <label for="imageUpload">Upload Image:</label>
-        <input type="file" id="imageUpload">
-    </div>
-    <!-- Colorful background themes -->
-    <div>
-        <label>Select Background Theme:</label>
-        <select id="backgroundTheme">
-            <option value="default">Default</option>
-            <option value="theme1">Yellow Theme</option>
-            <option value="theme2">Blue Theme</option>
+<header>
+    <h1>Global Spark</h1>
+</header>
+
+<!-- Background Music -->
+<audio autoplay loop>
+    <source src="https://tinyurl.com/2bsc8mat" type="audio/mp3">
+    Your browser does not support the audio element.
+</audio>
+
+<nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+</nav>
+
+<!-- Cute Welcome Message -->
+<div id="welcome-message" class="slide-in">
+    <h2>Welcome to Global Spark!</h2>
+    <p>Where innovation meets creativity. Get ready to explore a world of possibilities.</p>
+</div>
+
+<!-- Thank You Message -->
+<div class="section slide-in">
+    <h2>Thanks for Visiting!</h2>
+</div>
+
+<!-- Current Time and Date -->
+<div class="section slide-in">
+    <p>Current Time: <span id="current-time"></span></p>
+    <p>Current Date: <span id="current-date"></span></p>
+</div>
+
+<!-- Text Analysis Widget -->
+<div class="section slide-in">
+    <h2>Text Analysis</h2>
+    <textarea id="textInput" class="text-area" placeholder="Enter text for analysis..."></textarea><br>
+    <button onclick="analyzeText()">Analyze Text</button>
+    <p id="textAnalysisResult"></p>
+</div>
+
+<!-- Weather Widget -->
+<div class="section slide-in">
+    <h2>Weather</h2>
+    <p>Enter Location: <input type="text" id="locationInput" placeholder="e.g., New York"></p>
+    <button onclick="getWeather()">Get Weather</button>
+    <p id="weatherResult"></p>
+</div>
+
+<!-- Todo List Widget -->
+<div class="section slide-in todo-list">
+    <h2>Todo List</h2>
+    <input type="text" id="todoInput" placeholder="Enter a new task">
+    <button onclick="addTodo()">Add Task</button>
+    <ul id="todoList"></ul>
+</div>
+
+<!-- Calendar Widget -->
+<div class="section slide-in">
+    <h2>Calendar</h2>
+    <p id="calendar"></p>
+</div>
+
+<!-- Currency Converter Widget -->
+<div class="section slide-in">
+    <h2>Currency Converter</h2>
+    <p>Amount: <input type="number" id="amountInput" placeholder="Enter amount"></p>
+    <p>From: 
+        <select id="fromCurrency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <!-- Add more currencies as needed -->
         </select>
-    </div>
-    <!-- Numbered input boxes -->
-    <div>
-        <label>Numbered Boxes for Typing:</label><br>
-        <div class="numbered-box">1</div>
-        <div class="numbered-box">2</div>
-        <div class="numbered-box">3</div>
-    </div>
+    </p>
+    <p>To: 
+        <select id="toCurrency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <!-- Add more currencies as needed -->
+        </select>
+    </p>
+    <button onclick="convertCurrency()">Convert</button>
+    <p id="conversionResult"></p>
+</div>
+
+<!-- Image Generation Widget -->
+<div class="section slide-in">
+    <h2>Generate Images</h2>
+    <p>Prompt: <input type="text" id="imagePrompt" placeholder="Describe the image..."></p>
+    <p>API Key: <input type="text" id="apiKey" placeholder="Enter API Key"></p>
+    <p>Number of Images: <input type="number" id="imageCount" value="1"></p>
+    <button onclick="generateImages()">Generate Images</button>
     <div id="loading">Loading...</div>
-    <div id="images" class="image-container"></div>
-    <div id="error" class="error"></div>
-    <div class="footer theme1">
-        <!-- Footer content here -->
-    </div>
+    <div class="error" id="error"></div>
+    <div class="image-container" id="imageContainer"></div>
+</div>
 
-    <script>
-        // JavaScript code for handling user interactions and AJAX requests
-        $(document).ready(function(){
-            $('#generate').click(function(){
-                var prompt = $('#prompt').val() || 'cat';
-                var apiKey = $('#apiKey').val();
-                var numImages = $('#numImages').val();
+<!-- Social Links -->
+<div class="social-links section slide-in">
+    <h2>Follow Us</h2>
+    <a href="https://www.facebook.com" class="social-link">
+        <img src="https://i.imgur.com/kQ9l5qk.png" alt="Facebook" class="social-icon"> Facebook
+    </a>
+    <a href="https://www.twitter.com" class="social-link">
+        <img src="https://i.imgur.com/1xVzXg7.png" alt="Twitter" class="social-icon"> Twitter
+    </a>
+    <a href="https://www.instagram.com" class="social-link">
+        <img src="https://i.imgur.com/fep1AaA.png" alt="Instagram" class="social-icon"> Instagram
+    </a>
+</div>
 
-                // Input validation
-                if (!apiKey.trim()) {
-                    $('#error').text('Please enter your API Key');
-                    return;
-                }
-                $('#error').empty(); // Clear any previous error message
+<!-- Chatbot Widget -->
+<div class="section slide-in">
+    <h2>Chat with Us</h2>
+    <p id="chatPrompt">How can we help you today?</p>
+    <textarea id="chatInput" class="text-area" placeholder="Type your message..."></textarea><br>
+    <button onclick="sendMessage()">Send Message</button>
+    <div id="chatMessages"></div>
+</div>
 
-                $('#loading').show(); // Show loading indicator
+<footer>
+    <p>&copy; 2024 Global Spark. All rights reserved.</p>
+</footer>
 
-                $.ajax({
-                    url: '/api/bing',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    headers: {
-                        'apiKey': apiKey
-                    },
-                    data: JSON.stringify({ prompt: prompt, numImages: numImages }),
-                    success: function(data){
-                        $('#images').empty();
-                        if (data.images.length > 0) {
-                            data.images.forEach(function(image){
-                                var imageBox = $('<div class="image-box"></div>'); // Create image box
-                                var img = $('<img src="' + image + '">'); // Create image element
-                                imageBox.append(img); // Append image to box
-                                $('#images').append(imageBox); // Append box to container
-                            });
-                        } else {
-                            $('#error').text('No images found. Please try a different prompt.');
-                        }
-                    },
-                    error: function(xhr, status, error){
-                        $('#images').empty();
-                        $('#error').text('Error: ' + xhr.responseJSON.error);
-                    },
-                    complete: function(){
-                        $('#loading').hide(); // Hide loading indicator
-                    }
-                });
-            });
-
-            // Change background theme
-            $('#backgroundTheme').change(function(){
-                var selectedTheme = $(this).val();
-                $('body').removeClass().addClass(selectedTheme);
-            });
-
-            // Handle image upload
-            $('#imageUpload').change(function(){
-                // Code for handling image upload
-                alert('Image uploaded successfully!');
-            });
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const elements = document.querySelectorAll('.slide-in');
+        elements.forEach(element => {
+            element.classList.add('slide-in-visible');
         });
-    </script>
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    });
+
+    function updateDateTime() {
+        const now = new Date();
+        document.getElementById('current-time').textContent = now.toLocaleTimeString();
+        document.getElementById('current-date').textContent = now.toLocaleDateString();
+    }
+
+    function analyzeText() {
+        const text = document.getElementById('textInput').value;
+        // Simple text analysis example (word count)
+        const wordCount = text.trim().split(/\s+/).length;
+        document.getElementById('textAnalysisResult').textContent = `Word Count: ${wordCount}`;
+    }
+
+    function getWeather() {
+        const location = document.getElementById('locationInput').value;
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=YOUR_API_KEY&units=metric`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.cod === 200) {
+                    document.getElementById('weatherResult').textContent = `Temperature: ${data.main.temp} °C`;
+                } else {
+                    document.getElementById('weatherResult').textContent = `Error: ${data.message}`;
+                }
+            })
+            .catch(error => {
+                document.getElementById('weatherResult').textContent = `Error: ${error.message}`;
+            });
+    }
+
+    function addTodo() {
+        const task = document.getElementById('todoInput').value;
+        if (task) {
+            const ul = document.getElementById('todoList');
+            const li = document.createElement('li');
+            li.textContent = task;
+            const button = document.createElement('button');
+            button.textContent = 'Remove';
+            button.onclick = () => li.remove();
+            li.appendChild(button);
+            ul.appendChild(li);
+            document.getElementById('todoInput').value = '';
+        }
+    }
+
+    function convertCurrency() {
+        const amount = document.getElementById('amountInput').value;
+        const fromCurrency = document.getElementById('fromCurrency').value;
+        const toCurrency = document.getElementById('toCurrency').value;
+        fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`)
+            .then(response => response.json())
+            .then(data => {
+                const rate = data.rates[toCurrency];
+                const result = amount * rate;
+                document.getElementById('conversionResult').textContent = `${amount} ${fromCurrency} = ${result.toFixed(2)} ${toCurrency}`;
+            })
+            .catch(error => {
+                document.getElementById('conversionResult').textContent = `Error: ${error.message}`;
+            });
+    }
+
+    function generateImages() {
+        const prompt = document.getElementById('imagePrompt').value;
+        const apiKey = document.getElementById('apiKey').value;
+        const count = document.getElementById('imageCount').value;
+        const container = document.getElementById('imageContainer');
+        const loading = document.getElementById('loading');
+        const error = document.getElementById('error');
+        container.innerHTML = '';
+        error.textContent = '';
+        loading.style.display = 'block';
+
+        fetch('https://bing-xxx.com/api/bing', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({ prompt, count })
+        })
+        .then(response => response.json())
+        .then(data => {
+            loading.style.display = 'none';
+            if (data.success) {
+                data.images.forEach(url => {
+                    const div = document.createElement('div');
+                    div.className = 'image-box';
+                    const img = document.createElement('img');
+                    img.src = url;
+                    div.appendChild(img);
+                    container.appendChild(div);
+                });
+            } else {
+                error.textContent = `Error: ${data.message}`;
+            }
+        })
+        .catch(error => {
+            loading.style.display = 'none';
+            error.textContent = `Error: ${error.message}`;
+        });
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('chatInput').value;
+        const messagesDiv = document.getElementById('chatMessages');
+        if (input) {
+            const message = document.createElement('p');
+            message.textContent = `You: ${input}`;
+            messagesDiv.appendChild(message);
+
+            // Simulate a bot response
+            setTimeout(() => {
+                const botMessage = document.createElement('p');
+                botMessage.textContent = 'Bot: Thank you for your message!';
+                messagesDiv.appendChild(botMessage);
+            }, 1000);
+
+            document.getElementById('chatInput').value = '';
+        }
+    }
+</script>
 </body>
 </html>
