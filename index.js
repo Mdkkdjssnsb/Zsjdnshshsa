@@ -25,7 +25,7 @@ app.post('/api/bing', async (req, res) => {
   }
 
   const prompt = req.body.prompt;
-  const cookies = req.query._U;
+  const cookies = req.query.cookies;
 
   try {
     const data = await bing(prompt, cookies, key);
