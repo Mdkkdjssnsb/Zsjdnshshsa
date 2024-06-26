@@ -66,7 +66,7 @@ app.get('/api/bing', checkUIDBan, checkIPBan, checkCookieBan, async (req, res) =
   try {
     const data = await bing(prompt, cookie, key);
     const images = data.result;
-    res.json({ images });
+    res.json({ images: images });
   } catch (error) {
     console.error(error); // Log the error for debugging purposes
     res.status(500).json({ error: error.message });
